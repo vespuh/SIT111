@@ -1,0 +1,17 @@
+CHIP RAM4K {
+    IN in[16], load, address[12];
+    OUT out[16];
+
+	PARTS:
+
+DMux8Way(in=load,sel=address[0..2],a=aLoad,b=bLoad,c=cLoad,d=dLoad,e=eLoad,f=fLoad,g=gLoad,h=hLoad);
+RAM512(in=in,load=aLoad,address=address[3..11],out=outa);
+RAM512(in=in,load=bLoad,address=address[3..11],out=outb);
+RAM512(in=in,load=cLoad,address=address[3..11],out=outc);
+RAM512(in=in,load=dLoad,address=address[3..11],out=outd);
+RAM512(in=in,load=eLoad,address=address[3..11],out=oute);
+RAM512(in=in,load=fLoad,address=address[3..11],out=outf);
+RAM512(in=in,load=gLoad,address=address[3..11],out=outg);
+RAM512(in=in,load=hLoad,address=address[3..11],out=outh);
+Mux8Way16(a=outa,b=outb,c=outc,d=outd,e=oute,f=outf,g=outg,h=outh,sel=address[0..2],out=out);
+}
